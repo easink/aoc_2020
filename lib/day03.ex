@@ -41,21 +41,23 @@ defmodule AOC.Day03 do
   def traverse_map(map, {slope_x, slope_y}, width) do
     height = length(map)
 
-    generate_path(height, width, slope_x, slope_y)
+    {height, width, slope_x, slope_y}
+    |> generate_path()
     |> Enum.filter(fn pos -> pos in map end)
   end
 
   # def generate_path(height, width, slope_x, slope_y) when slope_x > slope_y,
   #   do: 0..(height - 1) |> Enum.map(fn y -> {y, rem(y * slope_x, width)} end)
 
-  def generate_path(height, width, slope_x, slope_y),
-    do: generate_path(height, width, slope_x, slope_y, [], 0, 0)
+  def generate_path(params),
+    do: generate_path(params, [], 0, 0)
 
-  def generate_path(height, _width, _slope_x, _slope_y, path, _x, y) when y >= height,
+  def generate_path({height, _, _, _}, path, _, y) when y >= height,
     do: path
 
-  def generate_path(height, width, slope_x, slope_y, path, x, y) do
+  def generate_path(params, path, x, y) do
+    {_height, width, slope_x, slope_y} = params
     path = [{y, rem(x, width)} | path]
-    generate_path(height, width, slope_x, slope_y, path, x + slope_x, y + slope_y)
+    generate_path(params, path, x + slope_x, y + slope_y)
   end
 end

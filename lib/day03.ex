@@ -19,7 +19,7 @@ defmodule AOC.Day03 do
 
   def parse_trees(input) do
     lines = input |> String.split("\n", trim: true)
-    width = String.length(hd(lines))
+    width = lines |> hd |> String.length()
 
     {width,
      lines

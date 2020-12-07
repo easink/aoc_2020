@@ -1,4 +1,4 @@
-defmodule AOCDay04Test do
+defmodule AOCDay05Test do
   use ExUnit.Case
 
   @testset """
